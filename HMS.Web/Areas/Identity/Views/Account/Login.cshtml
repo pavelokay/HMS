@@ -1,0 +1,32 @@
+﻿@model HMS.Web.ViewModels.Users.LoginViewModel
+@{
+    ViewData["Title"] = "Вход в приложение";
+}
+
+<div class="login-form">
+    <div>
+        <h2 class="login-form__title">Вход в приложение</h2>
+        <form method="post" asp-area="Identity" asp-controller="Account" asp-action="Login" asp-antiforgery="true"
+              asp-route-returnUrl="@Model.ReturnUrl">
+            <div class="validation" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <label asp-for="UserName">Логин:</label><br />
+                <input asp-for="UserName" />
+                <span asp-validation-for="UserName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password">Пароль:</label><br />
+                <input type="password" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RememberMe"></label>
+                <input class="remember-btn" asp-for="RememberMe" />
+            </div>
+            <div>
+                <input class="btn btn-dark" type="submit" value="Войти" />
+            </div>
+        </form>
+        <a class="login-form__reg btn btn-outline-info" asp-area="Identity" asp-action="Register" asp-controller="Account">Регистрация</a>
+    </div>
+</div>

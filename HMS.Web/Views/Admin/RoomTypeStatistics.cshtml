@@ -1,0 +1,45 @@
+﻿@model HMS.Web.ViewModels.Statistics.RoomTypeStatisticsViewModel
+@{
+    ViewData["Title"] = "RoomType Statistics";
+}
+<div>
+    <h6>Количество номеров по выборке @Model.RoomTypes.Count()</h6>
+</div>
+<div>
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отель</th>
+                <th scope="col">Рейт</th>
+                <th scope="col">Всего номеров</th>
+                <th scope="col">Свободных номеров</th>
+                <th scope="col">Занятых номеров</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var roomType in Model.RoomTypes)
+            {
+                <tr>
+                    <th scope="row">@roomType.Id</th>
+                    <td>@roomType.Name</td>
+                    <td>@roomType.Hotel.Name</td>
+                    <td>@roomType.Rate $</td>
+                    <td>@roomType.Rooms.Count()</td>
+                    <td>@roomType.Rooms.Where(r => r.RoomStatusId == 3).Count()</td>
+                    <td>@roomType.Rooms.Where(r => r.RoomStatusId != 3).Count()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form asp-area="" asp-controller="Admin" asp-action="RoomStatistics" asp-antiforgery="true" method="get">
+        <div class="form-row">
+            <input type="hidden" name="modeId" value="@Model.ModeId" />
+            <input type="hidden" name="reportFlag" value="1" />
+            <div class="col">
+                <input type="submit" class="btn btn-dark" value="Скачать отчет">
+            </div>
+        </div>
+    </form>
+</div>

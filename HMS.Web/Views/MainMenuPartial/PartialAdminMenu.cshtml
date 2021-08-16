@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+<li class="nav-item nav-item-space">
+    <spar class="navbar-brand">@UserManager.GetUserName(User)</spar>
+</li>
+<li class="nav-item">
+    <a id="admin-menu" class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index" title="AdminMenu">Административная панель</a>
+</li>
+
+<li class="nav-item">
+    <form id="logoutForm" class="form-inline" asp-area="Identity" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Выйти</button>
+    </form>
+</li>

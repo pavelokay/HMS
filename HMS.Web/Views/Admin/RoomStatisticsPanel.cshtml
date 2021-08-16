@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Hotel>
+@{
+    ViewData["Title"] = "Room Statistics";
+}
+<h3>Оставьте значения пустыми, чтобы не учитывать значения для поиска</h3>
+<div>
+    <ul class="statistics-panel">
+        <li>
+            <div>
+                <h5>Просмотр всех номеров</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="RoomStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="0" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="allRooms">Выберите отель</label>
+                            <select class="form-control" name="hotelId" id="allRooms">
+                                <option value="" selected>Все отели</option>
+                                @foreach (var hotel in Model)
+                                {
+                                    <option value="@hotel.Id">@hotel.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Просмотр всех свободных номеров</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="RoomStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="1" />
+                    <input type="hidden" name="roomStatusId" value="3" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="allRooms">Выберите отель</label>
+                            <select class="form-control" name="hotelId" id="allRooms">
+                                <option value="" selected>Все отели</option>
+                                @foreach (var hotel in Model)
+                                {
+                                    <option value="@hotel.Id">@hotel.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Просмотр номеров по характеристикам</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="RoomStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="1" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="allRooms">Выберите отель</label>
+                            <select class="form-control" name="hotelId" id="allRooms">
+                                <option value="" selected>Все отели</option>
+                                @foreach (var hotel in Model)
+                                {
+                                    <option value="@hotel.Id">@hotel.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="floorNumber">Введите этажи для поиска номеров</label>
+                            <input type="text" class="form-control" name="minFloorNumber" id="floorNumber" placeholder="от" />
+                            <input type="text" class="form-control" name="maxFloorNumber" placeholder="до" />
+                        </div>
+                        <div class="col">
+                            <label for="guestNumberr">Введите вместимость номеров для поиска</label>
+                            <input type="text" class="form-control" name="minGuest" id="guestNumber" placeholder="от" />
+                            <input type="text" class="form-control" name="maxGuest" placeholder="до" />
+                        </div>
+                        <div class="col">
+                            <label for="rateNumber">Введите стоимость проживания номеров для поиска</label>
+                            <input type="text" class="form-control" name="minRate" id="rateNumber" placeholder="от" />
+                            <input type="text" class="form-control" name="maxRate" placeholder="до" />
+                        </div>
+                        <div class="col">
+                            <label for="allRooms">Статус номера</label>
+                            <select class="form-control" name="roomStatusId" id="allRooms">
+                                <option value="" selected>Свободные и занятые</option>
+                                <option value="3">Свободные</option>
+                                <option value="2">Занятые</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Просмотр занятых номеров, которые освобождаются к указанному сроку</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="RoomStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="2" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="allRooms">Выберите отель</label>
+                            <select class="form-control" name="hotelId" id="allRooms">
+                                <option value="" selected>Все отели</option>
+                                @foreach (var hotel in Model)
+                                {
+                                    <option value="@hotel.Id">@hotel.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="date">Укажите дату к которой номера должны быть освобождены</label>
+                            <input type="text" name="outDay" value="@DateTime.Today.Date.ToString("d")" />
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Просмотр номеров забронированных организациями/физическими лицами</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="RoomStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="3" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="allRooms">Выберите отель</label>
+                            <select class="form-control" name="hotelId" id="allRooms">
+                                <option value="" selected>Все отели</option>
+                                @foreach (var hotel in Model)
+                                {
+                                    <option value="@hotel.Id">@hotel.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="chooseRole">Выберите роль</label>
+                            <select class="form-control" name="roleName" id="chooseRole">
+                                <option value="client">Физическое лицо</option>
+                                <option value="organization" selected>Оргинизация</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>
+

@@ -1,0 +1,86 @@
+﻿@model HMS.Web.ViewModels.Users.RegisterViewModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+<div class="reg-form">
+    <h2>Регистрация нового пользователя</h2>
+    <form method="post" asp-controller="Account" asp-action="Register" asp-antiforgery="true">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+        @*<div class="row">
+            <div>
+                <input asp-for="Flag" type="checkbox" value="1" id="orgFlag" />
+                <label for="orgFlag">Зарегестрироваться как организация</label>
+            </div>
+        </div>*@
+        <div class="row">
+            <div class="col-6">
+                <div>
+                    <label asp-for="FirstName">Имя:</label><br />
+                    <input asp-for="FirstName" />
+                    <span asp-validation-for="FirstName"></span>
+                </div>
+                <div>
+                    <label asp-for="LastName">Фамилия:</label><br />
+                    <input asp-for="LastName" />
+                    <span asp-validation-for="LastName"></span>
+                </div>
+                <div>
+                    <label asp-for="UserName">Логин:</label><br />
+                    <input asp-for="UserName" />
+                    <span asp-validation-for="UserName"></span>
+                </div>
+                <div>
+                    <label asp-for="GenderId">Пол:</label><br />
+                    <select asp-for="GenderId">
+                        <option value="2">Муж</option>
+                        <option value="1">Жен</option>
+                    </select>
+                    <span asp-validation-for="GenderId"></span>
+                </div>
+                <div>
+                    <label asp-for="Email">Email:</label><br />
+                    <input asp-for="Email" />
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PhoneNumber">Телефон:</label><br />
+                    <input asp-for="PhoneNumber" />
+                    <span asp-validation-for="PhoneNumber"></span>
+                </div>
+            </div>
+            <div class="col-6">
+                <div>
+                    <label asp-for="Country">Страна:</label><br />
+                    <input asp-for="Country" />
+                    <span asp-validation-for="Country"></span>
+                </div>
+                <div>
+                    <label asp-for="Town">Город:</label><br />
+                    <input asp-for="Town" />
+                    <span asp-validation-for="Town"></span>
+                </div>
+                <div>
+                    <label asp-for="Address">Адрес:</label><br />
+                    <input asp-for="Address" />
+                    <span asp-validation-for="Address"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Password">Пароль:</label><br />
+                    <input asp-for="Password" />
+                    <span asp-validation-for="Password"></span>
+                </div>
+                <div>
+                    <label asp-for="PasswordConfirm">Повторите пароль:</label><br />
+                    <input asp-for="PasswordConfirm" />
+                    <span asp-validation-for="PasswordConfirm"></span>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-dark reg-form__btn" value="Регистрация" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

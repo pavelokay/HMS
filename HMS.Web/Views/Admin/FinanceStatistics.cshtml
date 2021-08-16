@@ -1,0 +1,49 @@
+﻿@model HMS.Web.ViewModels.Statistics.FinanceStatisticsViewModel
+@{
+    ViewData["Title"] = "Finances";
+    decimal overAllCost = @Model.Transactions.Sum(t => t.Cost);
+    var reportRoleName = (String.IsNullOrEmpty(Model.RoleName)) ? "все роли" : Model.RoleName;
+    var reportPeriod = (Model.FullPeriod == "1") ? "все время" : Model.DateRange;
+}
+<div class="profile-transactions">
+    <h4 class="profile-transactions__title text-center">Финансовая статистика по транзакциям для роли: @reportRoleName за @reportPeriod</h4>
+    <table class="profile-transactions-table table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id транзакции</th>
+                <th scope="col">Логин пользователя</th>
+                <th scope="col">Телефон пользователя</th>
+                <th scope="col">Дата</th>
+                <th scope="col">Id бронирования</th>
+                <th scope="col">Id платежа</th>
+                <th scope="col">Стоимость</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <th scope="row">@transaction.Id</th>
+                    <td>@transaction.Client.UserName</td>
+                    <td>@transaction.Client.PhoneNumber</td>
+                    <td>@transaction.CreatedAt.Date.ToString("d")</td>
+                    <td>@transaction.ReservationId</td>
+                    <td>@transaction.PaymentId</td>
+                    <td>@transaction.Cost $</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <h6>Общая сумма по выбранным транзакциям @overAllCost $</h6>
+    <form asp-area="" asp-controller="Admin" asp-action="Finances" asp-antiforgery="true" method="get">
+        <div class="form-row">
+            <input type="hidden" name="roleName" value="@Model.RoleName" />
+            <input type="hidden" name="dateRangeReport" value="@Model.DateRange" />
+            <input type="hidden" name="fullPeriod" value="@Model.FullPeriod" />
+            <input type="hidden" name="reportFlag" value="1" />
+            <div class="col">
+                <input type="submit" class="btn btn-dark" value="Скачать отчет">
+            </div>
+        </div>
+    </form>
+</div>

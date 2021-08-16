@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Hotel>
+@{
+    ViewData["Title"] = "Stay Plan";
+}
+<div>
+    <div class="reservation-form-header">
+        <p class="reservation-form-header__text">Выберите отель в котором хотели бы остановиться, даты предпологаемого проживания, количество людей проживающих в комнате и необходимое количество номеров</p>
+        <p class="reservation-form-header__text text-secondary">Телефон для бронирования +43242343</p>
+    </div>
+    <div class="reservation-form">
+        <form asp-controller="Reservation" asp-action="ChooseRoom" asp-antiforgery="true">
+            <div class="form-row row">
+                <div class="col-lg-3 col-md-6 form-group">
+                    <label for="inputHotel">Отель</label>
+                    <select class="form-control" name="HotelId" id="inputHotel">
+                        @foreach (var hotel in Model)
+                        {
+                            if (ViewBag.HotelId != null && hotel.Id == ViewBag.HotelId)
+                            {
+                                <option value="@hotel.Id" selected>@hotel.Name</option>
+                            }
+                            <option value="@hotel.Id">@hotel.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-4 col-md-6 form-group">
+                    <label for="inputdaterange">Даты проживания</label>
+                    <input class="form-control" name="dateRange" id="inputdaterange" value="@DateTime.Today.Date.ToString("d") - @DateTime.Today.AddDays(1).Date.ToString("d")">
+                </div>
+
+                <div class="col-lg-2 col-md-6 form-group">
+                    <label for="inputCheckOut">Количество гостей</label>
+                    <input type="text" class="form-control" name="guestCount" placeholder="" id="inputGuest" value="2" />
+                </div>
+                <div class="col-lg-2 col-md-6 form-group">
+                    <label for="inputCheckOut">Количество комнат</label>
+                    <input type="text" class="form-control" name="roomCount" placeholder="" id="inputRoom" value="1" />
+                </div>
+                <button type="submit" class="btn btn-dark reservation-form__btn col-lg-1">Поиск</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+

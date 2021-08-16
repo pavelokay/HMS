@@ -1,0 +1,41 @@
+﻿@model Reservation
+
+@{
+    ViewData["Title"] = "Cancel reservation";
+}
+
+<h1>Delete</h1>
+<p class="text-danger">@ViewData["ErrorMessage"]</p>
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="row">
+        <dt>Дата создания:</dt>
+        <dd>@Model.CreatedAt.Date.ToString("d")</dd>
+        <dt>Дата заезда:</dt>
+        <dd>@Model.CheckIn.Date.ToString("d")</dd>
+        <dt>Дата выезда:</dt>
+        <dd>@Model.CheckOut.Date.ToString("d")</dd>
+        <dt>Комнаты:</dt>
+        <dd>
+
+            @foreach (var room in Model.Rooms)
+            {
+                @room.Number
+                <span> </span>
+            }
+        </dd>
+        <dt>Тип номера</dt>
+        <dd>@Model.Rooms.FirstOrDefault().RoomType.Name</dd>
+        <dt>Гостиница</dt>
+        <dd>@Model.Rooms.FirstOrDefault().RoomType.Hotel.Name</dd>
+
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Profile">Back to profile</a>
+    </form>
+</div>

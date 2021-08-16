@@ -1,0 +1,98 @@
+﻿@model HMS.Web.ViewModels.Statistics.UserStatisticsViewModel
+@{
+    ViewData["Title"] = "User Statistics";
+    int iterattor = 0;
+}
+<div>
+    <h6>Количество пользователей по выборке @Model.Users.Count()</h6>
+</div>
+<div>
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Логин</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Пол</th>
+                <th scope="col">Номер телефона</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Адрес</th>
+                <th scope="col">Дата создания</th>
+                <th scope="col">Роль</th>
+                <th scope="col">Добавить транзакцию за услуги</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <th scope="row">@user.Id</th>
+                    <td>@user.UserName</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>
+                        @{ @if (user.GenderId == 1)
+                            {
+                                <span>Жен</span>
+                            }
+                            else
+                            { <span>Муж</span>}
+                        }
+                    </td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Email</td>
+                    <td>@user.Country, @user.Town, @user.Address</td>
+                    <td>@user.CreatedAt.Date.ToString("d")</td>
+                    <td>
+                        @{ @foreach (Role role in Model.AllRoles)
+                            {
+                                @if (Model.UserRoles[iterattor].Contains(role.Name))
+                                {
+                                    <span>@role.Name</span>
+                                }
+                                else
+                                {
+                                    <span></span>
+                                }
+                            }
+                        }
+                    </td>
+                    <td><button class="btn btn-dark add-service-transaction-button" value="@user.Id">Добавить</button></td>
+                </tr>
+                iterattor = iterattor + 1;
+            }
+        </tbody>
+    </table>
+    <form asp-area="" asp-controller="Admin" asp-action="UserStatistics" asp-antiforgery="true" method="get">
+        <div class="form-row">
+            <input type="hidden" name="roleName" value="@Model.RoleName" />
+            <input type="hidden" name="modeId" value="@Model.ModeId" />
+            <input type="hidden" name="hotelId" value="@Model.HotelId" />
+            <input type="hidden" name="userId" value="@Model.UserId" />
+            <input type="hidden" name="minReservationRoomCount" value="@Model.MinReservationRoomCount" />
+            <input type="hidden" name="topPlaceCount" value="@Model.TopPlaceCount" />
+            <input type="hidden" name="DateRangeReport" value="@Model.DateRange" />
+            <input type="hidden" name="DateRangeReport2" value="@Model.DateRange2" />
+            <input type="hidden" name="fullPeriod" value="@Model.FullPeriod" />
+            <input type="hidden" name="minFloorNumber" value="@Model.MinFloorNumber" />
+            <input type="hidden" name="maxFloorNumber" value="@Model.MaxFloorNumber" />
+            <input type="hidden" name="minGuest" value="@Model.MinGuest" />
+            <input type="hidden" name="maxGuest" value="@Model.MaxGuest" />
+            <input type="hidden" name="minRate" value="@Model.MinRate" />
+            <input type="hidden" name="maxRate" value="@Model.MaxRate" />
+            <input type="hidden" name="roomStatusId" value="@Model.RoomStatusId" />
+            <input type="hidden" name="reportFlag" value="1" />
+            <div class="col">
+                <input type="submit" class="btn btn-dark" value="Скачать отчет">
+            </div>
+        </div>
+    </form>
+</div>
+<select id="add-service-transaction-select" class="form-control" multiple style="display: none">
+    @foreach (var service in Model.Services)
+    {
+        <option value="@service.Id">@service.Name</option>
+    }
+</select>
+<div id="add-service-transaction-container"></div>

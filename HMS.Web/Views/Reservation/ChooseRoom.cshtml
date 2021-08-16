@@ -1,0 +1,39 @@
+﻿@model HMS.Web.ViewModels.ReservationController.ChooseRoomViewModel
+@{
+    ViewData["Title"] = "Choose room";
+}
+<div class="choose-room-data">
+    <ul class="choose-room-data-list row">
+        <li class="col-sm-12 col-md-2">Отель: @Model.Hotel.Name</li>
+        <li class="col-md-4 col-sm-12">Даты проживания: @Model.CheckIn.Value.ToString("d") - @Model.CheckOut.Value.ToString("d")</li>
+        <li class="col-md-2 col-sm-12">@Model.GuestCount взрослых</li>
+        <li class="col-md-2 col-sm-12">@Model.RoomCount комнат</li>
+        <li class="col-md-2 col-sm-12"><a class="btn btn-dark choose-room-data-list__btn" asp-controller="Reservation" asp-action="Index" asp-route-hotelId="@Model.Hotel.Id">Изменить поиск</a></li>
+    </ul>
+</div>
+<h6 class="choose-room-title">Комнаты</h6>
+<div class="choose-room-listbox">
+    @foreach (RoomType roomtype in Model.RoomTypes)
+    {
+        <div class="card mb-3 choose-room-list">
+            <div class="row no-gutters">
+                <div class="col-lg-6 col-md-12">
+                    <img class="img-fluid" alt="@roomtype.RoomTypeImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).AltName" src="~/images/roomTypes/@roomtype.RoomTypeImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).ImageFile" />
+
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="card-body choose-room-item">
+                        <h6 class="card-title choose-room-item__title">@roomtype.Name</h6>
+                        <p class="card-text">@roomtype.Bed</p>
+                        <p class="card-text">@roomtype.Bathroom</p>
+                        <p class="card-text">@roomtype.View</p>
+                        <p class="card-text">@roomtype.Size кв. метров</p>
+                        <p class="card-text">от @roomtype.Rate за ночь</p>
+                        <a class="btn btn-outline-dark" asp-controller="Reservation" asp-action="AccommodationPayment" asp-route-hotelId="@Model.Hotel.Id" asp-route-roomTypeId="@roomtype.Id" asp-route-checkIn="@Model.CheckIn" asp-route-checkOut="@Model.CheckOut" asp-route-guestCount="@Model.GuestCount" asp-route-roomCount="@Model.RoomCount">Выбрать номер</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>

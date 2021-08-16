@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "JANUARY PLAZA HOTELS";
+}
+@model IEnumerable<Hotel>
+<div class="find-hotel-list row">
+    <div class="card-group">
+        @foreach (Hotel hotel in Model)
+        {
+        <div class="col-lg-12 col-xl-4 d-flex align-items-stretch find-hotel-list__item">
+            <!-- Card -->
+            <div class="card mb-2 find-hotel-list__card">
+
+                <!--Card image-->
+                <div>
+                    <a asp-controller="Hotel" asp-action="Index" asp-route-hotelId="@hotel.Id">
+                        <img class="card-img-top find-hotel-list__img img-fluid" alt="@hotel.HotelImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).AltName" src="~/images/hotels/@hotel.HotelImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).ImageFile" />
+                    </a>
+                </div>
+
+                <!--Card content-->
+                <div class="card-body">
+
+                    <!--Title-->
+                    <h4 class="card-title">@hotel.Name. @hotel.Stars звезд</h4>
+                    <!--Text-->
+                    <p class="card-text">
+                        @hotel.Description
+                    </p>
+                    <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                    <a class="btn btn-dark card-link" asp-controller="Hotel" asp-action="Index" asp-route-hotelId="@hotel.Id">Ознакомиться</a>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

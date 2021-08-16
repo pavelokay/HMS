@@ -1,0 +1,124 @@
+﻿@model HMS.Web.ViewModels.HotelController.RoomTypeDetailsViewModel
+@{
+    ViewData["Title"] = "Room" + @Model.RoomType.Name;
+}
+<partial name="_NavBarHotelPartial" model="Model.Hotel" />
+<div>
+    <div class="text-center hotel-roomtype-title">
+        <h6>Размещение</h6>
+        <h3>@Model.RoomType.Name</h3>
+    </div>
+    <div class="hotel-roomtype-img-wrap img-fluid">
+        <img class="img-fluid hotel-roomtype__image" alt="@Model.RoomType.RoomTypeImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).AltName" src="~/images/roomTypes/@Model.RoomType.RoomTypeImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).ImageFile" />
+    </div>
+    <div class="text-center hotel-roomtype-description__title">
+        <p class="hotel-roomtype-description">@Model.RoomType.Description</p>
+        <a class="btn btn-outline-dark" asp-controller="Reservation" asp-action="Index" asp-route-hotelId="@Model.RoomType.HotelId">Стоимость проживания</a>
+    </div>
+    <!--Carousel Wrapper-->
+    <h6 class="hotel-roomtype-galery__title">Галлерея</h6>
+    <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-2" data-slide-to="1"></li>
+            <li data-target="#carousel-example-2" data-slide-to="2"></li>
+        </ol>
+        <!--/.Indicators-->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <div class="view">
+                    <img class="d-block w-100" alt="@Model.RoomType.RoomTypeImages.FirstOrDefault().AltName" style="width: 100%; height: 450px;" src="~/images/roomTypes/@Model.RoomType.RoomTypeImages.FirstOrDefault().ImageFile" />
+                    <div class="mask rgba-black-light"></div>
+                </div>
+            </div>
+            <div class="carousel-item ">
+                <div class="view">
+                    <img class="d-block w-100" alt="@Model.RoomType.RoomTypeImages.ElementAtOrDefault(1).AltName" style="width: 100%; height: 450px;" src="~/images/roomTypes/@Model.RoomType.RoomTypeImages.ElementAtOrDefault(1).ImageFile" />
+                    <div class="mask rgba-black-light"></div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="view">
+                    <img class="d-block w-100" alt="@Model.RoomType.RoomTypeImages.LastOrDefault().AltName" style="width: 100%; height: 450px;" src="~/images/roomTypes/@Model.RoomType.RoomTypeImages.LastOrDefault().ImageFile" />
+                    <div class="mask rgba-black-light"></div>
+                </div>
+            </div>
+        </div>
+        <!--/.Slides-->
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+        <!--/.Controls-->
+    </div>
+    <!--/.Carousel Wrapper-->
+    <h6 class="hotel-roomtype-details__title">Детали</h6>
+    <div>
+        <div class="card-group hotel-roomtype-details-list">
+            <div class="col-lg-4 col-md-6">
+                <div class="card hotel-roomtype-details-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Кровати</h5>
+                        <p class="card-text hotel-roomtype-details-card__text">@Model.RoomType.Bed</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Вместительность</h5>
+                        <p class="card-text hotel-roomtype-details-card__text">@Model.RoomType.MaxGuest взрослых</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ванная</h5>
+                        <p class="card-text hotel-roomtype-details-card__text">@Model.RoomType.Bathroom</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Размер</h5>
+                        <p class="card-text hotel-roomtype-details-card__text">@Model.RoomType.Size кв. метров</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Оформление</h5>
+                        <p class="card-text hotel-roomtype-details-card__text">@Model.RoomType.Decor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body ">
+                        <h5 class="card-title">Виды из номера</h5>
+                        <p class="card-text hotel-roomtype-details-card__text">@Model.RoomType.View</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Оссобенности</h5>
+                        <p class="card-text hotel-roomtype-details-card__text">@Model.RoomType.Features</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

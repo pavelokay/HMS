@@ -1,0 +1,16 @@
+﻿<div>
+    <ul class="nav hotel-nav">
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Hotel" asp-action="Index" asp-route-hotelId="@Model.Id">Обзор отеля</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Hotel" asp-action="Accommodation" asp-route-hotelId="@Model.Id">Размещение</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Hotel" asp-action="Services" asp-route-hotelId="@Model.Id">Услуги</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Hotel" asp-action="Contacts" asp-route-hotelId="@Model.Id">Связаться с нами</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,64 @@
+﻿@model HMS.Web.ViewModels.Statistics.ReservationStatisticsViewModel
+@{
+    ViewData["Title"] = "Reservation Statistics";
+    string roomType = "";
+    string hotelName = "";
+    int iterattor = 0;
+}
+<div>
+    <h6>Количество бронирований по выборке @Model.Reservations.Count()</h6>
+</div>
+<div>
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Клиент</th>
+                <th scope="col">Дата создания</th>
+                <th scope="col">Дата заселения</th>
+                <th scope="col">Дата выселения</th>
+                <th scope="col">Номера</th>
+                <th scope="col">Тип номера</th>
+                <th scope="col">Отель</th>
+                <th scope="col">Количество гостей</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model.Reservations)
+            {
+                <tr>
+                    <th scope="row">@reservation.Id</th>
+                    <td>@Model.Users[iterattor].UserName</td>
+                    <td>@reservation.CreatedAt.Date.ToString("d")</td>
+                    <td>@reservation.CheckIn.Date.ToString("d")</td>
+                    <td>@reservation.CheckOut.Date.ToString("d")</td>
+                    <td>
+                        @foreach (var room in reservation.Rooms)
+                        {
+                            roomType = room.RoomType.Name;
+                            hotelName = room.RoomType.Hotel.Name;
+                            @room.Number
+                            <span> </span>
+                        }
+                    </td>
+                    <td>@roomType</td>
+                    <td>@hotelName</td>
+                    <td>@reservation.GuestCount взрослых</td>
+                </tr>
+                iterattor = iterattor + 1;
+            }
+        </tbody>
+    </table>
+    <form asp-area="" asp-controller="Admin" asp-action="ReservationStatistics" asp-antiforgery="true" method="get">
+        <div class="form-row">
+            <input type="hidden" name="modeId" value="@Model.ModeId" />
+            <input type="hidden" name="userLogin" value="@Model.UserLogin" />
+            <input type="hidden" name="DateRangeReport" value="@Model.DateRange" />
+            <input type="hidden" name="fullPeriod" value="@Model.FullPeriod" />
+            <input type="hidden" name="reportFlag" value="1" />
+            <div class="col">
+                <input type="submit" class="btn btn-dark" value="Скачать отчет">
+            </div>
+        </div>
+    </form>
+</div>

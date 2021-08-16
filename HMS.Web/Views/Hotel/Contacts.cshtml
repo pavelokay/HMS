@@ -1,0 +1,18 @@
+﻿@model Hotel
+@{
+    ViewData["Title"] = "Contacts" + " | " + @Model.Name;
+}
+<partial name="_NavBarHotelPartial" />
+<div class="hotel-contacts">
+    <div class="hotel-contacts-header">
+        <h6 class="hotel-contacts-header__hotelname">@Model.Name</h6>
+        <h3 class="hotel-contacts-header__head">Свяжитесь с нами</h3>
+    </div>
+
+    <ul class="list-group list-group-flush hotel-contacts-list">
+        <li class="list-group-item">Address | @Model.Country, @Model.Town, @Model.Address</li>
+        <li class="list-group-item">Phone | @Model.PhoneNumber</li>
+        <li class="list-group-item">Fax | @Model.Fax</li>
+        <li class="list-group-item">Email | @Model.Email</li>
+    </ul>
+</div>

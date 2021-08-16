@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "User Statistics";
+}
+<h3>Оставьте значения пустыми, чтобы не учитывать значения для поиска</h3>
+<div>
+    <ul class="statistics-panel">
+        <li>
+            <div>
+                <h5>Сведения обо всех клиентах</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="UserStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="0" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="chooseRole">Выберите роль</label>
+                            <select class="form-control" name="roleName" id="chooseRole">
+                                <option value="">Все роли</option>
+                                <option value="client">Физические лица</option>
+                                <option value="organization">Организации</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Сведения о клиентах, забронировавших места в объеме, не менее указанного, за определенный период</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="UserStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="1" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="chooseRole">Выберите роль</label>
+                            <select class="form-control" name="roleName" id="chooseRole">
+                                <option value="client">Физические лица</option>
+                                <option value="organization">Организации</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label>Минимальный объем бронирования</label>
+                            <input type="text" class="form-control" name="minReservationRoomCount">
+                        </div>
+
+                        <div class="col">
+                            <label for="inputdaterangeUser">Период</label>
+                            <input type="text" class="form-control" name="dateRange" id="inputdaterangeUser" value="@DateTime.Today.Date.ToString("d") - @DateTime.Today.AddDays(1).Date.ToString("d")">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="periodCheck" name="fullPeriod" value="1">
+                            <label class="form-check-label" for="periodCheck">Статистика за весь период</label>
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Сведения о постояльцах, заселившихся в номера с указанными характеристиками за опеределенный период</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="UserStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="2" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="chooseRole">Выберите роль</label>
+                            <select class="form-control" name="roleName" id="chooseRole">
+                                <option value="client">Физические лица</option>
+                                <option value="organization">Организации</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="inputdaterangeUser">Период</label>
+                            <input type="text" class="form-control" name="dateRange" id="inputdaterangeUser2" value="@DateTime.Today.Date.ToString("d") - @DateTime.Today.AddDays(1).Date.ToString("d")">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="periodCheck2" name="fullPeriod" value="1">
+                            <label class="form-check-label" for="periodCheck">Статистика за весь период</label>
+                        </div>
+                        <div class="col">
+                            <label for="floorNumber">Введите этажи номеров</label>
+                            <input type="text" class="form-control" name="minFloorNumber" id="floorNumber" placeholder="от" />
+                            <input type="text" class="form-control" name="maxFloorNumber" placeholder="до" />
+                        </div>
+                        <div class="col">
+                            <label for="guestNumberr">Введите вместимость номеров</label>
+                            <input type="text" class="form-control" name="minGuest" id="guestNumber" placeholder="от" />
+                            <input type="text" class="form-control" name="maxGuest" placeholder="до" />
+                        </div>
+                        <div class="col">
+                            <label for="rateNumber">Введите стоимость проживания номеров</label>
+                            <input type="text" class="form-control" name="minRate" id="rateNumber" placeholder="от" />
+                            <input type="text" class="form-control" name="maxRate" placeholder="до" />
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Сведения о клиентах, с которыми заключены договора на указанный период</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="UserStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="3" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="chooseRole">Выберите роль</label>
+                            <select class="form-control" name="roleName" id="chooseRole">
+                                <option value="client">Физические лица</option>
+                                <option value="organization">Организации</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label for="inputdaterangeUser">Период</label>
+                            <input type="text" class="form-control" name="dateRange" id="inputdaterangeUser3" value="@DateTime.Today.Date.ToString("d") - @DateTime.Today.AddDays(1).Date.ToString("d")">
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Сведения о наиболее часто посещающих гостиницу постояльцах</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="UserStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="4" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="topCount">Сколько клиентов в топе выводить</label>
+                            <input type="text" class="form-control" name="topPlaceCount" id="topCount" placeholder="10" />
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h5>Сведения о новых клиентах за указанный период</h5>
+                <form asp-area="" asp-controller="Admin" asp-action="UserStatistics" asp-antiforgery="true">
+                    <input type="hidden" name="modeId" value="5" />
+                    <div class="form-row">
+                        <div class="col">
+                            <label for="inputdaterangeUser4">Период</label>
+                            <input type="text" class="form-control" name="dateRange2" id="inputdaterangeUser4" value="@DateTime.Today.Date.ToString("d") - @DateTime.Today.AddDays(1).Date.ToString("d")">
+                        </div>
+                        <div class="col">
+                            <input type="submit" class="btn btn-dark" value="Просмотр">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </li>
+    </ul>
+</div>

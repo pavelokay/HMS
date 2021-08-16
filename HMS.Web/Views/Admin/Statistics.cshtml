@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Statistics";
+}
+
+<div class="statistics-main-list">
+    <ul>
+        <li>
+            <a asp-area="" asp-controller="Admin" asp-action="RoomStatisticsPanel">Статистика номеров</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Admin" asp-action="UserStatisticsPanel">Статистика пользователей</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Admin" asp-action="ReservationStatisticsPanel">Статистика бронирований</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Admin" asp-action="RoomTypeStatistics" asp-route-modeId="1">Статистика по типам номеров</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Admin" asp-action="PersonInfoStatisticsPanel">Статистика клиента</a>
+        </li>
+    </ul>
+</div>

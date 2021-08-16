@@ -1,0 +1,18 @@
+﻿@model Hotel
+@{
+    ViewData["Title"] = "Services" + " | " + @Model.Name;
+}
+<partial name="_NavBarHotelPartial" />
+<div class="hotel-services">
+    <div class="hotel-services-header">
+        <h6 class="hotel-services-header__hotelname">@Model.Name</h6>
+        <h3 class="hotel-services-header__head">Предоставляемые услуги</h3>
+    </div>
+
+    <ul class="list-group list-group-flush hotel-services-list">
+        @foreach (var service in Model.Services.Where(s => s.Description != "hidden"))
+        {
+            <li class="list-group-item">@service.Name | @service.Description</li>
+        }
+    </ul>
+</div>

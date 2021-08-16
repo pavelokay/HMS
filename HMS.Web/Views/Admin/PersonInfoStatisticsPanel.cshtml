@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Person Statistic";
+}
+<div>
+    <div>
+        <h5>Сведения о конкретном пользователе</h5>
+        <form asp-area="" asp-controller="Admin" asp-action="PersonInfoStatistics" asp-antiforgery="true">
+            <div class="form-row">
+                <div class="col">
+                    <label for="clientLogin">Введите логин клиента</label>
+                    <input type="text" class="form-control" name="userLogin" id="clientLogin" />
+                </div>
+                <div class="col">
+                    <input type="submit" class="btn btn-dark" value="Просмотр">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

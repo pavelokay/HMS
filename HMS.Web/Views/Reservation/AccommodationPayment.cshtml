@@ -1,0 +1,63 @@
+﻿@model HMS.Web.ViewModels.ReservationController.AccommodationPaymentViewModel
+@{
+    ViewData["Title"] = "Оплата проживания";
+    int duration = @Model.CheckOut.Subtract(@Model.CheckIn).Days;
+}
+
+<div class="row payment-form">
+    <div class="col-4">
+        <div class="payment-form-bookinfo">
+            <h6>Бронирование</h6>
+            <p>@Model.Hotel.Name</p>
+            <p>@Model.CheckIn.Date.ToString("d") - @Model.CheckOut.Date.ToString("d")</p>
+            <p>@Model.RoomCount Комната - @Model.GuestCount Взрослых</p>
+        </div>
+        <div class="payment-form-roominfo">
+            <h6>@Model.RoomType.Name</h6>
+            <p>Средний тариф @Model.RoomType.Rate $</p>
+            <p>Длительность проживания @duration ночей</p>
+            @{ @if (Model.Sale != null)
+                {
+                    <p>Общая сумма @Model.Price $</p>
+                    <p>Скидка для вашей организации @Model.Sale %</p>
+                    <p>Итоговая стоимость @Model.SalePrice</p>
+                }
+                else
+                {
+                    <p>Общая сумма @Model.Price $</p>
+                }
+            }
+        </div>
+
+    </div>
+    <div class="col-8">
+        <div class="payment-form-card">
+            <form asp-controller="Reservation" asp-action="AccommodationPayment" asp-antiforgery="true">
+                <div class="form-row">
+                    <label>Владелец карты</label>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="form-row">
+                    <label>Номер карты</label>
+                    <input class="form-control" type="text">
+                </div>
+                <input type="hidden" name="checkIn" value="@Model.CheckIn" />
+                <input type="hidden" name="checkOut" value="@Model.CheckOut" />
+                <input type="hidden" name="roomCount" value="@Model.RoomCount" />
+                <input type="hidden" name="guestCount" value="@Model.GuestCount" />
+                <input type="hidden" name="roomTypeId" value="@Model.RoomType.Id" />
+                @{ @if (Model.Sale != null)
+                    {
+                        <input type="hidden" name="cost" value="@Model.SalePrice" />
+                    }
+                    else
+                    {
+                        <input type="hidden" name="cost" value="@Model.Price" />
+                    }
+                }
+                <input type="submit" class="btn btn-dark payment-form-bookbtn" value="Забронировать" />
+            </form>
+        </div>
+    </div>
+</div>
+

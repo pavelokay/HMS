@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/modules.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+            <div class="container">
+                <a class="navbar-brand logo" asp-area="" asp-controller="Home" asp-action="Index">January</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between" id="navbarNavDropdown">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="FindHotel">Все гостиницы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservation" asp-action="Index">Найти номер</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Identity" asp-controller="Account" asp-action="Profile">Мой профиль</a>
+                        </li>
+                        @await Component.InvokeAsync("MainMenu")
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container min-vh-100 main-container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="page-footer border-top text-muted">
+        <div class="container">
+            <div class="row text-center d-flex justify-content-center pt-4 mb-1 footer-nav">
+
+                <div class="col-md-2 mb-3">
+                    <h6 class="text-uppercase font-weight-bold footer-nav__item">
+                        <a href="#!" class="footer-nav__item-link">HMS Hotels</a>
+                    </h6>
+                </div>
+            </div>
+
+            <hr class="rgba-white-light footer-white-line" style="margin: 0 15%;">
+
+            <div class="footer-social row d-flex text-center justify-content-center mb-md-0 mb-1">
+                <div class="follow-links">
+                    <h3 class="follow-links__title">Следить за нами</h3>
+                    <ul class="follow-links-list">
+                        <li><a href="#!" class="follow-links__item"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#!" class="follow-links__item"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#!" class="follow-links__item"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#!" class="follow-links__item"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright text-center py-1">
+            &copy; 2020 - HMS.Web - <a class="page-footer__privacy" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

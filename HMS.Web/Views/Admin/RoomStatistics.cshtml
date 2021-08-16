@@ -1,0 +1,67 @@
+﻿@model HMS.Web.ViewModels.Statistics.RoomStatisticsViewModel
+@{
+    ViewData["Title"] = "Room Statistics";
+}
+<div>
+    <h6>Количество номеров по выборке @Model.Rooms.Count()</h6>
+</div>
+<div>
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Номер</th>
+                <th scope="col">Тип номера</th>
+                <th scope="col">Отель</th>
+                <th scope="col">Этаж</th>
+                <th scope="col">Размер</th>
+                <th scope="col">Вместимость</th>
+                <th scope="col">Стоимость</th>
+                <th scope="col">Статус</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var room in Model.Rooms)
+            {
+                <tr>
+                    <th scope="row">@room.Id</th>
+                    <td>@room.Number</td>
+                    <td>@room.RoomType.Name</td>
+                    <td>@room.RoomType.Hotel.Name</td>
+                    <td>@room.FloorNumber этаж</td>
+                    <td>@room.RoomType.Size кв. метров</td>
+                    <td>@room.RoomType.MaxGuest взрослых</td>
+                    <td>@room.RoomType.Rate $ за ночь</td>
+                    <td>
+                        @{ @if (room.RoomStatusId == 3)
+                            {
+                                <span>Свободна</span>
+                            }
+                            else
+                            { <span>Занята</span>}
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form asp-area="" asp-controller="Admin" asp-action="RoomStatistics" asp-antiforgery="true" method="get">
+        <div class="form-row">
+            <input type="hidden" name="roleName" value="@Model.RoleName" />
+            <input type="hidden" name="modeId" value="@Model.ModeId" />
+            <input type="hidden" name="hotelId" value="@Model.HotelId" />
+            <input type="hidden" name="outDay" value="@Model.OutDay" />
+            <input type="hidden" name="minFloorNumber" value="@Model.MinFloorNumber" />
+            <input type="hidden" name="maxFloorNumber" value="@Model.MaxFloorNumber" />
+            <input type="hidden" name="minGuest" value="@Model.MinGuest" />
+            <input type="hidden" name="maxGuest" value="@Model.MaxGuest" />
+            <input type="hidden" name="minRate" value="@Model.MinRate" />
+            <input type="hidden" name="maxRate" value="@Model.MaxRate" />
+            <input type="hidden" name="roomStatusId" value="@Model.RoomStatusId" />
+            <input type="hidden" name="reportFlag" value="1" />
+            <div class="col">
+                <input type="submit" class="btn btn-dark" value="Скачать отчет">
+            </div>
+        </div>
+    </form>
+</div>

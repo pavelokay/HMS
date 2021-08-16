@@ -1,0 +1,67 @@
+﻿@model HotelComplex
+@{
+    ViewData["Title"] = "JANUARY PLAZA HOTELS";
+}
+<section class="home-logo">
+    <div class="main-logo">
+        <div class="main-logo__image img-fluid"></div>
+        <h1 class="display-4 main-logo__text">JANUARY PLAZA HOTELS</h1>
+    </div>
+</section>
+
+<section class="home-info">
+    <div class="info-header">
+        <h2 class="section-title info-header__title">О нас</h2>
+        <div class="section-title--add info-header__text">Предоставляем гостиничные услуги с 1930 года</div>
+    </div>
+    <div class="info-content">
+        <div class="info-slider" id="info-slider">
+            <input type="radio" class="slider-switch__item" data-index="1" name="switch" checked id="switch1">
+            <input type="radio" class="slider-switch__item" data-index="2" name="switch" id="switch2">
+            <input type="radio" class="slider-switch__item" data-index="3" name="switch" id="switch3">
+            <input type="radio" class="slider-switch__item" data-index="4" name="switch" id="switch4">
+
+            <div class="slider-frame">
+
+                <div class="slider-frame__img slider-frame__img--slide1"></div>
+                <div class="slider-frame__img slider-frame__img--slide2"></div>
+                <div class="slider-frame__img slider-frame__img--slide3"></div>
+                <div class="slider-frame__img slider-frame__img--slide4"></div>
+
+            </div>
+
+            <div class="slider-switch">
+
+                <label class="slider-switch__btn" for="switch1"></label>
+                <label class="slider-switch__btn" for="switch2"></label>
+                <label class="slider-switch__btn" for="switch3"></label>
+                <label class="slider-switch__btn" for="switch4"></label>
+
+            </div>
+        </div>
+        <div class="info-describe">
+            <div class="info-describe__title">Высочайшее качество обслуживания</div>
+            <p class="info-describe__text">
+                Каждый день мы трудимся для того, чтобы предоставлять вам наилучшее качество обслуживания на рынке
+            </p>
+            <p class="info-describe__text">Ощутите домашнюю атмосферу наших отелей</p>
+        </div>
+    </div>
+</section>
+
+<section class="home-hotels-list">
+    <div class="hotels-list-header">
+        <h2 class="section-title">Наши отели</h2>
+        <div class="section-title--add">Отправляйтесь в путешествие и оставайтесь в отелях January</div>
+    </div>
+
+    <div class="hotels-list">
+        @foreach (var image in Model.HotelComplexImages)
+        {
+            <img class="hotels-list__item" alt="@image.AltName" src="~/images/hotelComplex/@image.ImageFile" />
+        }
+    </div>
+
+</section>
+
+

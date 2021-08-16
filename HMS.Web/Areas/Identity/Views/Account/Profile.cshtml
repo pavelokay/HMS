@@ -1,0 +1,93 @@
+﻿@model HMS.Web.ViewModels.Users.ProfileViewModel
+@{
+    ViewData["Title"] = "Profile" + Model.User.UserName;
+}
+
+<div class="profile">
+    <div class="profile-info">
+        <h4 class="profile-info__title">Пользователь</h4>
+        <ul class="profile-info-list">
+            <li>Логин: @Model.User.UserName</li>
+            <li>Имя: @Model.User.FirstName</li>
+            <li>Фамилия: @Model.User.LastName</li>
+            <li>Адрес: @Model.User.Country, @Model.User.Town, @Model.User.Address</li>
+            <li>Телефон: @Model.User.PhoneNumber</li>
+            <li>E-mail: @Model.User.Email</li>
+            <li>Дата создания: @Model.User.CreatedAt.Date.ToString("d")</li>
+        </ul>
+        <a asp-area="Identity" asp-action="EditProfile" asp-controller="Account" class="btn btn-dark" asp-route-id="@Model.User.Id">Edit</a>
+        <a asp-area="Identity" asp-action="DeleteProfile" asp-controller="Account" class="btn btn-dark" asp-route-id="@Model.User.Id">Delete</a>
+    </div>
+    <div class="profile-actions">
+        <div class="profile-reservations">
+            <h4 class="profile-reservations__title">Бронирования</h4>
+            <table class="profile-reservations-table table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Дата бронирования</th>
+                        <th scope="col">Даты проживания</th>
+                        <th scope="col">Комнаты</th>
+                        <th scope="col">Тип номера</th>
+                        <th scope="col">Отель</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reservation in Model.Reservations)
+                    {
+                        <tr>
+                            <th scope="row">@reservation.Id</th>
+                            <td>@reservation.CreatedAt.Date.ToString("d")</td>
+                            <td>@reservation.CheckIn.Date.ToString("d") - @reservation.CheckOut.Date.ToString("d")</td>
+                            <td>
+
+                                @foreach (var room in reservation.Rooms)
+                                {
+                                    @room.Number
+                                    <span> </span>
+                                }
+                            </td>
+                            <td>@reservation.Rooms.FirstOrDefault().RoomType.Name</td>
+                            <td>@reservation.Rooms.FirstOrDefault().RoomType.Hotel.Name</td>
+                            @if (reservation.CheckIn > DateTime.Now)
+                            {
+                                <td><a class="btn btn-dark" asp-area="" asp-controller="Reservation" asp-action="CancelReservation" asp-route-id="@reservation.Id">Отменить бронирование</a></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="profile-transactions">
+            <h4 class="profile-transactions__title">Транзакции</h4>
+            <table class="profile-transactions-table table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Id бронирования</th>
+                        <th scope="col">Id платежа</th>
+                        <th scope="col">Стоимость</th>
+                        <th scope="col">Статус</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model.Transactions)
+                    {
+                        <tr>
+                            <th scope="row">@transaction.Id</th>
+                            <td>@transaction.CreatedAt.ToString("d")</td>
+                            <td>@transaction.ReservationId</td>
+                            <td>@transaction.PaymentId</td>
+                            <td>@transaction.Cost $</td>
+                            <td>
+                                @transaction.TransactionStatus.Name @if (transaction.TransactionStatusId == 2)
+                                {<button class="service-payment-button btn btn-light" data-transactionid="@transaction.Id">Оплатить</button>}
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

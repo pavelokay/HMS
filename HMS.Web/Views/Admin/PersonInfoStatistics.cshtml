@@ -1,0 +1,91 @@
+﻿@model HMS.Web.ViewModels.Users.ProfileViewModel
+@{
+    ViewData["Title"] = "Profile Statistics" + Model.User.UserName;
+    string roomType = "";
+    string hotelName = "";
+}
+
+<div class="profile">
+    <div class="row">
+        <div class="col-10">
+            <div class="profile-reservations">
+                <h4 class="profile-reservations__title">Бронирования пользователя</h4>
+                <table class="profile-reservations-table table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id бронирования</th>
+                            <th scope="col">Дата бронирования</th>
+                            <th scope="col">Дата заселения</th>
+                            <th scope="col">Дата выселения</th>
+                            <th scope="col">Забронированные комнаты</th>
+                            <th scope="col">Тип номера</th>
+                            <th scope="col">Отель</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var reservation in Model.Reservations)
+                        {
+                            <tr>
+                                <th scope="row">@reservation.Id</th>
+                                <td>@reservation.CreatedAt.Date.ToString("d")</td>
+                                <td>@reservation.CheckIn.Date.ToString("d")</td>
+                                <td>@reservation.CheckOut.Date.ToString("d")</td>
+                                <td>
+                                    @foreach (var room in reservation.Rooms)
+                                    {
+                                        roomType = room.RoomType.Name;
+                                        hotelName = room.RoomType.Hotel.Name;
+                                        @room.Number
+                                        <span> </span>
+                                    }
+                                </td>
+                                <td>@roomType</td>
+                                <td>@hotelName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="profile-transactions">
+                <h4 class="profile-transactions__title">Транзакции</h4>
+                <table class="profile-transactions-table table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id транзакции</th>
+                            <th scope="col">Дата</th>
+                            <th scope="col">Id бронирования</th>
+                            <th scope="col">Id платежа</th>
+                            <th scope="col">Стоимость</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transaction in Model.Transactions)
+                        {
+                            <tr>
+                                <th scope="row">@transaction.Id</th>
+                                <td>@transaction.CreatedAt</td>
+                                <td>@transaction.ReservationId</td>
+                                <td>@transaction.PaymentId</td>
+                                <td>@transaction.Cost $</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="profile-info">
+                <h4 class="profile-info__title">Пользователь</h4>
+                <ul class="profile-info-list">
+                    <li>Логин: @Model.User.UserName</li>
+                    <li>Имя: @Model.User.FirstName</li>
+                    <li>Фамилия: @Model.User.LastName</li>
+                    <li>Адрес: @Model.User.Country, @Model.User.Town, @Model.User.Address</li>
+                    <li>Телефон: @Model.User.PhoneNumber</li>
+                    <li>E-mail: @Model.User.Email</li>
+                    <li>Дата создания: @Model.User.CreatedAt.Date.ToString("d")</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

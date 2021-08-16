@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Finances Panel";
+}
+<div>
+    <div>
+        <h5>Финансовая статистика за период</h5>
+        <form asp-area="" asp-controller="Admin" asp-action="Finances" asp-antiforgery="true">
+            <div class="form-row">
+                <div class="col">
+                    <label for="chooseRole">Выберите роль клиентов для предоставления статистики</label>
+                    <select class="form-control" name="roleName" id="chooseRole">
+                        <option value="">Все роли</option>
+                        <option value="client">Физические лица</option>
+                        <option value="organization">Организации</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="inputdaterangeUser">Период</label>
+                    <input type="text" class="form-control" name="dateRange" id="inputdaterangeUser" value="@DateTime.Today.Date.ToString("d") - @DateTime.Today.AddDays(1).Date.ToString("d")">
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="periodCheck" name="fullPeriod" value="1">
+                    <label class="form-check-label" for="periodCheck">Статистика за весь период</label>
+                </div>
+                <div class="col">
+                    <input type="submit" class="btn btn-dark" value="Просмотр">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@model Hotel
+@{
+    ViewData["Title"] = "Номера в " + @Model.Name;
+}
+<partial name="_NavBarHotelPartial" />
+<div class="hotel-accommodation-header">
+    <h6 class="hotel-accommodation-header__hotelname">@Model.Name</h6>
+    <h3 class="hotel-accommodation-header__head">Проживание</h3>
+</div>
+<div class="hotel-accommodation-list">
+    @foreach (RoomType roomtype in Model.RoomTypes)
+    {
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-lg-7 col-sm-12 card-img">
+                    <img class="hotel-accommodation-list__img img-fluid" alt="@roomtype.RoomTypeImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).AltName" src="~/images/roomTypes/@roomtype.RoomTypeImages.FirstOrDefault(i => i.AltName.Contains("mainImage")).ImageFile" />
+                </div>
+                <div class="col-lg-5 col-sm-12">
+                    <div class="card-body">
+                        <h6 class="card-title"><a class="hotel-accommodation-list__title" asp-controller="Hotel" asp-action="RoomTypeDetail" asp-route-roomTypeId="@roomtype.Id" asp-route-hotelId="@Model.Id">@roomtype.Name</a></h6>
+                        <p class="card-text">Вместительность @roomtype.MaxGuest взрослых<p>
+                        <p class="card-text">@roomtype.Bed</p>
+                        <p class="card-text hotel-accommodation-list__size">@roomtype.Size кв. метров</p>
+                        <div class="hotel-accommodation-list__card-footer">
+                            <a class="btn btn-dark" asp-controller="Hotel" asp-action="RoomTypeDetail" asp-route-roomTypeId="@roomtype.Id" asp-route-hotelId="@Model.Id">Подробности</a>
+                            <a class="btn btn-outline-dark" asp-controller="Reservation" asp-action="Index" asp-route-hotelId="@roomtype.HotelId">Стоимость проживания</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
